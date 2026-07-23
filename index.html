@@ -9,328 +9,329 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#0f172a;
-    --ink-soft:#475569;
-    --ink-mute:#94a3b8;
-    --bg:#ffffff;
-    --bg-alt:#f7f9fb;
-    --line:#e6ebf1;
-    --pass:#16a34a;
-    --pass-soft:#e7f6ec;
-    --pass-ink:#0f7a39;
-    --radius:14px;
-    --maxw:880px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Manrope',system-ui,-apple-system,sans-serif;
-    color:var(--ink);
-    background:var(--bg);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-  a{color:inherit}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-
-  /* top bar */
-  .topbar{
-    position:sticky;top:0;z-index:20;
-    background:rgba(255,255,255,.85);
-    backdrop-filter:saturate(160%) blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
-  .brand{font-weight:800;letter-spacing:-.02em;font-size:15px}
-  .brand span{color:var(--ink-mute);font-weight:600}
-  .status{
-    display:inline-flex;align-items:center;gap:7px;
-    font-size:12.5px;font-weight:600;color:var(--pass-ink);
-    background:var(--pass-soft);border:1px solid #cdeed7;
-    padding:5px 11px;border-radius:999px;white-space:nowrap;
-  }
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--pass);box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2.4s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,.45)}70%{box-shadow:0 0 0 7px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
-
-  /* hero */
-  .hero{padding:54px 0 30px}
-  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:14px}
-  h1{font-size:clamp(34px,6vw,52px);line-height:1.04;letter-spacing:-.03em;font-weight:800}
-  .role{font-size:clamp(17px,3vw,21px);font-weight:600;color:var(--ink-soft);margin-top:10px}
-  .pitch{font-size:17px;color:var(--ink-soft);max-width:560px;margin-top:18px}
-
-  .contacts{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-  .chip{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:14px;font-weight:600;text-decoration:none;
-    padding:9px 14px;border:1px solid var(--line);border-radius:10px;
-    background:#fff;transition:border-color .15s,transform .15s,box-shadow .15s;
-  }
-  .chip:hover{border-color:var(--pass);transform:translateY(-1px);box-shadow:0 4px 14px rgba(15,23,42,.06)}
-  .chip svg{width:16px;height:16px;flex:none}
-  .chip.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .chip.primary:hover{background:#1e293b}
-
-  /* test-run signature card */
-  .testrun{
-    margin-top:34px;border:1px solid var(--line);border-radius:var(--radius);
-    overflow:hidden;background:var(--bg-alt);
-    font-family:'JetBrains Mono',monospace;font-size:13.5px;
-  }
-  .testrun .head{
-    display:flex;align-items:center;gap:9px;
-    padding:11px 16px;border-bottom:1px solid var(--line);
-    background:#fff;color:var(--ink-soft);font-weight:500;
-  }
-  .testrun .head b{color:var(--ink)}
-  .traf{display:flex;gap:6px;margin-right:4px}
-  .traf i{width:11px;height:11px;border-radius:50%;display:block}
-  .traf i:nth-child(1){background:#f87171}.traf i:nth-child(2){background:#fbbf24}.traf i:nth-child(3){background:#34d399}
-  .testrun .body{padding:14px 16px 16px}
-  .trow{display:flex;align-items:baseline;gap:10px;padding:3px 0;color:var(--ink-soft)}
-  .trow .ok{color:var(--pass);font-weight:700}
-  .trow .lbl{color:var(--ink)}
-  .trow .lead{flex:1;border-bottom:1px dotted #cbd5e1;transform:translateY(-3px)}
-  .trow .res{color:var(--pass-ink);font-weight:700}
-  .tsum{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink-mute)}
-  .tsum b{color:var(--pass-ink)}
-
-  /* sections */
-  section{padding:40px 0;border-top:1px solid var(--line)}
-  .sec-label{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500;color:var(--ink-mute);margin-bottom:8px}
-  h2{font-size:26px;letter-spacing:-.02em;font-weight:800;margin-bottom:20px}
-  .lead-p{font-size:16.5px;color:var(--ink-soft);max-width:640px}
-  .lead-p + .lead-p{margin-top:14px}
-
-  /* skills */
-  .skillgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  .skillblock h3{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-  .skillblock h3 .ico{color:var(--pass)}
-  .tags{display:flex;flex-wrap:wrap;gap:8px}
-  .tag{
-    font-size:13.5px;font-weight:600;color:var(--ink);
-    background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 11px;
-  }
-  .tag.pass::before{content:"✓ ";color:var(--pass);font-weight:800}
-
-  /* portfolio */
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .card{
-    display:block;text-decoration:none;border:1px solid var(--line);border-radius:var(--radius);
-    padding:18px;background:#fff;transition:border-color .15s,transform .15s,box-shadow .15s;
-  }
-  .card:hover{border-color:var(--pass);transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,23,42,.07)}
-  .card .ct{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
-  .card h3{font-size:16px;font-weight:700}
-  .card .arr{color:var(--ink-mute);transition:transform .15s,color .15s}
-  .card:hover .arr{color:var(--pass);transform:translate(2px,-2px)}
-  .card p{font-size:14px;color:var(--ink-soft)}
-  .card .kind{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-mute);margin-top:10px;display:block}
-
-  /* education / timeline */
-  .edu{display:flex;gap:16px;padding:14px 0}
-  .edu .yr{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink-mute);min-width:96px;padding-top:2px}
-  .edu .h{font-weight:700;font-size:15.5px}
-  .edu .d{font-size:14px;color:var(--ink-soft);margin-top:2px}
-
-  /* footer cta */
-  .cta{
-    margin:8px 0 0;border:1px solid var(--line);border-radius:18px;
-    background:var(--bg-alt);padding:34px 28px;text-align:center;
-  }
-  .cta h2{margin-bottom:8px}
-  .cta p{color:var(--ink-soft);font-size:16px;margin-bottom:22px}
-  .cta .contacts{justify-content:center}
-  footer{padding:30px 0 50px;color:var(--ink-mute);font-size:13px;text-align:center}
-
-  @media (max-width:680px){
-    .skillgrid,.cards{grid-template-columns:1fr}
-    .topbar .status{display:none}
-    .hero{padding:38px 0 24px}
-    .edu{flex-direction:column;gap:2px}
-    .edu .yr{min-width:0}
-  }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
-
-  /* печать в PDF */
-  @media print{
-    .topbar{display:none}
-    body{font-size:12px}
-    section,.hero{padding:14px 0;border-color:#ddd}
-    .card,.chip{box-shadow:none}
-    a[href^="http"]::after{content:" (" attr(href) ")";font-size:9px;color:#666}
-    .testrun .head{background:#fff}
-  }
+:root{
+--ink:#0f172a;
+--ink-soft:#475569;
+--ink-mute:#94a3b8;
+--bg:#ffffff;
+--bg-alt:#f7f9fb;
+--line:#e6ebf1;
+--pass:#16a34a;
+--pass-soft:#e7f6ec;
+--pass-ink:#0f7a39;
+--radius:14px;
+--maxw:880px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:'Manrope',system-ui,-apple-system,sans-serif;
+color:var(--ink);
+background:var(--bg);
+line-height:1.6;
+-webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+/* top bar */
+.topbar{
+position:sticky;top:0;z-index:20;
+background:rgba(255,255,255,.85);
+backdrop-filter:saturate(160%) blur(8px);
+border-bottom:1px solid var(--line);
+}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
+.brand{font-weight:800;letter-spacing:-.02em;font-size:15px}
+.brand span{color:var(--ink-mute);font-weight:600}
+.status{
+display:inline-flex;align-items:center;gap:7px;
+font-size:12.5px;font-weight:600;color:var(--pass-ink);
+background:var(--pass-soft);border:1px solid #cdeed7;
+padding:5px 11px;border-radius:999px;white-space:nowrap;
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--pass);box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,.45)}70%{box-shadow:0 0 0 7px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+/* hero */
+.hero{padding:54px 0 30px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:14px}
+h1{font-size:clamp(34px,6vw,52px);line-height:1.04;letter-spacing:-.03em;font-weight:800}
+.role{font-size:clamp(17px,3vw,21px);font-weight:600;color:var(--ink-soft);margin-top:10px}
+.pitch{font-size:17px;color:var(--ink-soft);max-width:560px;margin-top:18px}
+.contacts{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.chip{
+display:inline-flex;align-items:center;gap:8px;
+font-size:14px;font-weight:600;text-decoration:none;
+padding:9px 14px;border:1px solid var(--line);border-radius:10px;
+background:#fff;transition:border-color .15s,transform .15s,box-shadow .15s;
+}
+.chip:hover{border-color:var(--pass);transform:translateY(-1px);box-shadow:0 4px 14px rgba(15,23,42,.06)}
+.chip svg{width:16px;height:16px;flex:none}
+.chip.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.primary:hover{background:#1e293b}
+/* test-run signature card */
+.testrun{
+margin-top:34px;border:1px solid var(--line);border-radius:var(--radius);
+overflow:hidden;background:var(--bg-alt);
+font-family:'JetBrains Mono',monospace;font-size:13.5px;
+}
+.testrun .head{
+display:flex;align-items:center;gap:9px;
+padding:11px 16px;border-bottom:1px solid var(--line);
+background:#fff;color:var(--ink-soft);font-weight:500;
+}
+.testrun .head b{color:var(--ink)}
+.traf{display:flex;gap:6px;margin-right:4px}
+.traf i{width:11px;height:11px;border-radius:50%;display:block}
+.traf i:nth-child(1){background:#f87171}.traf i:nth-child(2){background:#fbbf24}.traf i:nth-child(3){background:#34d399}
+.testrun .body{padding:14px 16px 16px}
+.trow{display:flex;align-items:baseline;gap:10px;padding:3px 0;color:var(--ink-soft)}
+.trow .ok{color:var(--pass);font-weight:700}
+.trow .lbl{color:var(--ink)}
+.trow .lead{flex:1;border-bottom:1px dotted #cbd5e1;transform:translateY(-3px)}
+.trow .res{color:var(--pass-ink);font-weight:700}
+.tsum{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink-mute)}
+.tsum b{color:var(--pass-ink)}
+/* sections */
+section{padding:40px 0;border-top:1px solid var(--line)}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500;color:var(--ink-mute);margin-bottom:8px}
+h2{font-size:26px;letter-spacing:-.02em;font-weight:800;margin-bottom:20px}
+.lead-p{font-size:16.5px;color:var(--ink-soft);max-width:640px}
+.lead-p + .lead-p{margin-top:14px}
+/* skills */
+.skillgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.skillblock h3{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.skillblock h3 .ico{color:var(--pass)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{
+font-size:13.5px;font-weight:600;color:var(--ink);
+background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 11px;
+}
+.tag.pass::before{content:"✓ ";color:var(--pass);font-weight:800}
+/* portfolio */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{
+display:block;text-decoration:none;border:1px solid var(--line);border-radius:var(--radius);
+padding:18px;background:#fff;transition:border-color .15s,transform .15s,box-shadow .15s;
+}
+.card:hover{border-color:var(--pass);transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,23,42,.07)}
+.card .ct{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+.card h3{font-size:16px;font-weight:700}
+.card .arr{color:var(--ink-mute);transition:transform .15s,color .15s}
+.card:hover .arr{color:var(--pass);transform:translate(2px,-2px)}
+.card p{font-size:14px;color:var(--ink-soft)}
+.card .kind{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-mute);margin-top:10px;display:block}
+/* education / timeline */
+.edu{display:flex;gap:16px;padding:14px 0}
+.edu .yr{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink-mute);min-width:96px;padding-top:2px}
+.edu .h{font-weight:700;font-size:15.5px}
+.edu .d{font-size:14px;color:var(--ink-soft);margin-top:2px}
+.edu .cert{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:13.5px;font-weight:600;color:var(--pass-ink);text-decoration:none;background:var(--pass-soft);border:1px solid #cdeed7;padding:5px 11px;border-radius:8px}
+.edu .cert:hover{border-color:var(--pass)}
+/* footer cta */
+.cta{
+margin:8px 0 0;border:1px solid var(--line);border-radius:18px;
+background:var(--bg-alt);padding:34px 28px;text-align:center;
+}
+.cta h2{margin-bottom:8px}
+.cta p{color:var(--ink-soft);font-size:16px;margin-bottom:22px}
+.cta .contacts{justify-content:center}
+footer{padding:30px 0 50px;color:var(--ink-mute);font-size:13px;text-align:center}
+@media (max-width:680px){
+.skillgrid,.cards{grid-template-columns:1fr}
+.topbar .status{display:none}
+.hero{padding:38px 0 24px}
+.edu{flex-direction:column;gap:2px}
+.edu .yr{min-width:0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+/* печать в PDF */
+@media print{
+.topbar{display:none}
+body{font-size:12px}
+section,.hero{padding:14px 0;border-color:#ddd}
+.card,.chip{box-shadow:none}
+a[href^="http"]::after{content:" (" attr(href) ")";font-size:9px;color:#666}
+.testrun .head{background:#fff}
+}
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="wrap">
-    <div class="brand"> Боголюбов Александр <span>/ QA</span></div>
-    <span class="status"><span class="dot"></span> Открыт к предложениям</span>
-  </div>
+<div class="wrap">
+<div class="brand"> Боголюбов Александр <span>/ QA</span></div>
+<span class="status"><span class="dot"></span> Открыт к предложениям</span>
+</div>
 </div>
 
 <header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Резюме · Тестировщик ПО</div>
-    <h1>Боголюбов Александр</h1>
-    <div class="role">Junior QA Engineer · Ручное и API-тестирование</div>
-    <p class="pitch">Завершаю обучение тестированию ПО и ищу первую работу, чтобы расти в команде. Знаю теорию, умею писать тест-кейсы и баг-репорты, работаю с SQL и Postman. Готов к стажировке и быстро учусь.</p>
+<div class="wrap">
+<div class="eyebrow">Резюме · Тестировщик ПО</div>
+<h1>Боголюбов Александр</h1>
+<div class="role">Junior QA Engineer · Ручное и API-тестирование</div>
+<p class="pitch">Завершил обучение тестированию ПО и ищу первую работу, чтобы расти в команде. Знаю теорию, умею писать тест-кейсы и баг-репорты, работаю с SQL и Postman. Готов к стажировке и быстро учусь.</p>
 
-    <div class="contacts">
-      <a class="chip primary" href="https://t.me/Skuffoslav">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 16.6 9.6 13 16 7.2c.3-.3-.06-.4-.45-.18L7.7 12l-3.4-1.07c-.74-.23-.75-.74.16-1.1l13.3-5.13c.6-.23 1.18.15.95 1.1l-2.27 10.7c-.16.74-.6.92-1.22.57l-3.34-2.46-1.6 1.55c-.18.18-.33.33-.66.33Z"/></svg>
-        Telegram
-      </a>
-      <a class="chip" href="mailto:yaltesting@outlook.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-        yaltesting@outlook.com
-      </a>
-      <a class="chip" href="https://github.com/RolotBolot">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-        GitHub
-      </a>
-      <a class="chip" href="https://hh.ru/resume/f0d95b30ff10b9872b0039ed1f424650705064">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16l-8-4-8 4Z"/></svg>
-        Резюме на hh.ru
-      </a>
-    </div>
+<div class="contacts">
+<a class="chip primary" href="https://t.me/AlexBog98">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 16.6 9.6 13 16 7.2c.3-.3-.06-.4-.45-.18L7.7 12l-3.4-1.07c-.74-.23-.75-.74.16-1.1l13.3-5.13c.6-.23 1.18.15.95 1.1l-2.27 10.7c-.16.74-.6.92-1.22.57l-3.34-2.46-1.6 1.55c-.18.18-.33.33-.66.33Z"/></svg>
+Telegram
+</a>
+<a class="chip" href="mailto:rolotbolot@mail.ru">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+rolotbolot@mail.ru
+</a>
+<a class="chip" href="https://github.com/RolotBolot">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+GitHub
+</a>
+<a class="chip" href="https://hh.ru/resume/f0d95b30ff10b9872b0039ed1f424650705064">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16l-8-4-8 4Z"/></svg>
+Резюме на hh.ru
+</a>
+</div>
 
-    <div class="testrun" aria-label="Готовность к работе">
-      <div class="head"><span class="traf"><i></i><i></i><i></i></span> <b>test run:</b> готовность к работе</div>
-      <div class="body">
-        <div class="trow"><span class="ok">✓</span><span class="lbl">Теория тестирования</span><span class="lead"></span><span class="res">PASS</span></div>
-        <div class="trow"><span class="ok">✓</span><span class="lbl">SQL — выборки, JOIN, агрегаты</span><span class="lead"></span><span class="res">PASS</span></div>
-        <div class="trow"><span class="ok">✓</span><span class="lbl">API-тестирование (Postman)</span><span class="lead"></span><span class="res">PASS</span></div>
-        <div class="trow"><span class="ok">✓</span><span class="lbl">Баг-репорты и тест-кейсы</span><span class="lead"></span><span class="res">PASS</span></div>
-        <div class="trow"><span class="ok">✓</span><span class="lbl">Git, DevTools, баг-трекер</span><span class="lead"></span><span class="res">PASS</span></div>
-        <div class="tsum">— <b>5 passed</b> · 0 failed · готов к стажировке и junior-позиции</div>
-      </div>
-    </div>
-  </div>
+<div class="testrun" aria-label="Готовность к работе">
+<div class="head"><span class="traf"><i></i><i></i><i></i></span> <b>test run:</b> готовность к работе</div>
+<div class="body">
+<div class="trow"><span class="ok">✓</span><span class="lbl">Теория тестирования</span><span class="lead"></span><span class="res">PASS</span></div>
+<div class="trow"><span class="ok">✓</span><span class="lbl">SQL — выборки, JOIN, агрегаты</span><span class="lead"></span><span class="res">PASS</span></div>
+<div class="trow"><span class="ok">✓</span><span class="lbl">API-тестирование (Postman)</span><span class="lead"></span><span class="res">PASS</span></div>
+<div class="trow"><span class="ok">✓</span><span class="lbl">Баг-репорты и тест-кейсы</span><span class="lead"></span><span class="res">PASS</span></div>
+<div class="trow"><span class="ok">✓</span><span class="lbl">Git, DevTools, баг-трекер</span><span class="lead"></span><span class="res">PASS</span></div>
+<div class="tsum">— <b>5 passed</b> · 0 failed · готов к стажировке и junior-позиции</div>
+</div>
+</div>
+</div>
 </header>
 
 <section id="about">
-  <div class="wrap">
-    <div class="sec-label">// о себе</div>
-    <h2>Кто я</h2>
-    <p class="lead-p">Прохожу обучение на тестировщика ПО и параллельно собираю портфолио на реальных задачах. Мне нравится разбираться, как устроен продукт, и находить, где он ломается — а потом понятно описывать это, чтобы разработчик мог быстро всё починить.</p>
-    <p class="lead-p">Спокойно отношусь к рутине и внимателен к деталям. Не боюсь задавать вопросы и доводить баг до конца. Сейчас моя цель — получить первый коммерческий опыт и закрепить навыки в боевых условиях.</p>
-  </div>
+<div class="wrap">
+<div class="sec-label">// о себе</div>
+<h2>Кто я</h2>
+<p class="lead-p">Прошёл обучение на тестировщика ПО и параллельно собираю портфолио на реальных задачах. Мне нравится разбираться, как устроен продукт, и находить, где он ломается — а потом понятно описывать это, чтобы разработчик мог быстро всё починить.</p>
+<p class="lead-p">Спокойно отношусь к рутине и внимателен к деталям. Не боюсь задавать вопросы и доводить баг до конца. Сейчас моя цель — получить первый коммерческий опыт и закрепить навыки в боевых условиях.</p>
+</div>
 </section>
 
 <section id="skills">
-  <div class="wrap">
-    <div class="sec-label">// навыки</div>
-    <h2>Что умею</h2>
-    <div class="skillgrid">
-      <div class="skillblock">
-        <h3><span class="ico">◆</span> Тестирование</h3>
-        <div class="tags">
-          <span class="tag pass">Теория тестирования</span>
-          <span class="tag pass">Тест-кейсы</span>
-          <span class="tag pass">Чек-листы</span>
-          <span class="tag pass">Баг-репорты</span>
-          <span class="tag pass">Тест-дизайн</span>
-          <span class="tag pass">Функц. тестирование</span>
-          <span class="tag pass">Регрессионное</span>
-          <span class="tag pass">Smoke / Sanity</span>
-        </div>
-      </div>
-      <div class="skillblock">
-        <h3><span class="ico">◆</span> Инструменты</h3>
-        <div class="tags">
-          <span class="tag pass">Postman</span>
-          <span class="tag pass">SQL</span>
-          <span class="tag pass">DevTools</span>
-          <span class="tag pass">Git / GitHub</span>
-          <span class="tag pass">Баг-трекер (Jira/YouTrack)</span>
-          <span class="tag pass">REST API</span>
-          <span class="tag pass">HTTP / JSON</span>
-          <span class="tag pass">Charles / Fiddler</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="sec-label">// навыки</div>
+<h2>Что умею</h2>
+<div class="skillgrid">
+<div class="skillblock">
+<h3><span class="ico">◆</span> Тестирование</h3>
+<div class="tags">
+<span class="tag pass">Теория тестирования</span>
+<span class="tag pass">Тест-кейсы</span>
+<span class="tag pass">Чек-листы</span>
+<span class="tag pass">Баг-репорты</span>
+<span class="tag pass">Тест-дизайн</span>
+<span class="tag pass">Функц. тестирование</span>
+<span class="tag pass">Регрессионное</span>
+<span class="tag pass">Smoke / Sanity</span>
+</div>
+</div>
+<div class="skillblock">
+<h3><span class="ico">◆</span> Инструменты</h3>
+<div class="tags">
+<span class="tag pass">Postman</span>
+<span class="tag pass">SQL</span>
+<span class="tag pass">PostgreSQL / DBeaver</span>
+<span class="tag pass">DevTools</span>
+<span class="tag pass">Git / GitHub</span>
+<span class="tag pass">REST API</span>
+<span class="tag pass">HTTP / JSON</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="project">
+<div class="wrap">
+<div class="sec-label">// пет-проект</div>
+<h2>Тестирование Restful-booker API</h2>
+<p class="lead-p">Самостоятельное ручное тестирование публичного API бронирования в Postman. Протестированы все эндпоинты (GET, POST, PUT, DELETE, авторизация), проверены позитивные и негативные сценарии: отсутствующие и пустые обязательные поля, отрицательные значения, некорректный диапазон дат, запросы без авторизации.</p>
+<p class="lead-p"><b>Найдено 7 дефектов</b>, в том числе: 500 Internal Server Error при отсутствии обязательного поля; авторизация с неверным паролем возвращает 200 OK вместо 401; отсутствие валидации стоимости и дат; несогласованность кодов ответа при создании и удалении.</p>
+</div>
 </section>
 
 <section id="portfolio">
-  <div class="wrap">
-    <div class="sec-label">// работы</div>
-    <h2>Портфолио</h2>
-    <div class="cards">
-      <a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/test-cases.md">
-        <div class="ct"><h3>Тест-кейсы</h3><span class="arr">↗</span></div>
-        <p>Набор тест-кейсов на веб-приложение: позитивные и негативные сценарии, шаги, ожидаемый и фактический результат.</p>
-        <span class="kind">test-cases · google sheets / md</span>
-      </a>
-      <a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/bug-reports.md">
-        <div class="ct"><h3>Баг-репорты</h3><span class="arr">↗</span></div>
-        <p>Примеры оформленных баг-репортов: шаги воспроизведения, severity/priority, окружение, скриншоты.</p>
-        <span class="kind">bug-reports · md / pdf</span>
-      </a>
-      <a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/portfolio-sql.sql">
-        <div class="ct"><h3>SQL-запросы</h3><span class="arr">↗</span></div>
-        <p>Запросы для проверки данных: выборки с фильтрами, JOIN нескольких таблиц, группировки и поиск аномалий в данных.</p>
-        <span class="kind">portfolio-sql.sql</span>
-      </a>
-      <a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/restful-booker.postman_collection.json">
-        <div class="ct"><h3>Postman-коллекция</h3><span class="arr">↗</span></div>
-        <p>Коллекция API-тестов: авторизация, CRUD, проверки статус-кодов, тела ответа и времени отклика через тесты Postman.</p>
-        <span class="kind">postman_collection.json</span>
-      </a>
-      <a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/checklist.md">
-        <div class="ct"><h3>Чек-лист</h3><span class="arr">↗</span></div>
-        <p>Чек-лист на типовую фичу (форма авторизации / регистрации): что проверить по полям, валидации и безопасности.</p>
-        <span class="kind">checklist · md</span>
-      </a>
-      <a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/test-plan.md">
-        <div class="ct"><h3>Тест-план / мини-проект</h3><span class="arr">↗</span></div>
-        <p>Небольшой учебный проект: тест-план, прогон, найденные дефекты и краткий отчёт о тестировании.</p>
-        <span class="kind">test-plan · md</span>
-      </a>
-    </div>
-  </div>
+<div class="wrap">
+<div class="sec-label">// работы</div>
+<h2>Портфолио</h2>
+<div class="cards">
+
+<a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/bug-reports.md">
+<div class="ct"><h3>Баг-репорты</h3><span class="arr">↗</span></div>
+<p>7 дефектов, найденных при тестировании Restful-booker API: шаги воспроизведения, severity/priority, окружение, ожидаемый и фактический результат.</p>
+<span class="kind">bug-reports · md</span>
+</a>
+
+<a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/bookerpet.postman_collection.json">
+<div class="ct"><h3>Postman-коллекция</h3><span class="arr">↗</span></div>
+<p>Коллекция API-тестов Restful-booker: авторизация и CRUD-операции, позитивные и негативные запросы.</p>
+<span class="kind">postman_collection.json</span>
+</a>
+
+<a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/test-cases.md">
+<div class="ct"><h3>Тест-кейсы</h3><span class="arr">↗</span></div>
+<p>Набор тест-кейсов: позитивные и негативные сценарии, предусловия, шаги, ожидаемый и фактический результат.</p>
+<span class="kind">test-cases · md</span>
+</a>
+
+<a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/checklist.md">
+<div class="ct"><h3>Чек-лист</h3><span class="arr">↗</span></div>
+<p>Чек-лист на типовую фичу (форма авторизации / регистрации): что проверить по полям, валидации и безопасности.</p>
+<span class="kind">checklist · md</span>
+</a>
+
+<a class="card" href="https://github.com/RolotBolot/yaymamb-testirovshik/blob/main/test-plan.md">
+<div class="ct"><h3>Тест-план / мини-проект</h3><span class="arr">↗</span></div>
+<p>Небольшой учебный проект: тест-план, прогон, найденные дефекты и краткий отчёт о тестировании.</p>
+<span class="kind">test-plan · md</span>
+</a>
+
+</div>
+</div>
 </section>
 
 <section id="education">
-  <div class="wrap">
-    <div class="sec-label">// обучение</div>
-    <h2>Образование и курсы</h2>
-    <div class="edu">
-      <div class="yr">2025 — 2026</div>
-      <div>
-        <div class="h">Курс «Тестировщик ПО» — АНО ДПО МУЦ ИТ ПБ </div>
-        <div class="d">Теория тестирования, тест-дизайн, работа с API, SQL, баг-трекинг. Учебные проекты с реальными прогонами.</div>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="sec-label">// обучение</div>
+<h2>Образование и курсы</h2>
+<div class="edu">
+<div class="yr">2026</div>
+<div>
+<div class="h">«Тестировщик программного обеспечения» — 144 часа</div>
+<div class="d">АНО ДПО «Межрегиональный учебный центр инновационных технологий», Москва. Теория тестирования, тест-дизайн, тестовая документация, ручное тестирование веб- и мобильных приложений, SQL для тестировщика.</div>
+<a class="cert" href="certificate.pdf">📜 Удостоверение о повышении квалификации</a>
+</div>
+</div>
+</div>
 </section>
 
 <section>
-  <div class="wrap">
-    <div class="cta">
-      <h2>Готов выйти на стажировку</h2>
-      <p>Открыт к junior-позициям и стажировкам. Отвечаю быстро — пишите в Telegram.</p>
-      <div class="contacts">
-        <a class="chip primary" href="https://t.me/Skuffoslav">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 16.6 9.6 13 16 7.2c.3-.3-.06-.4-.45-.18L7.7 12l-3.4-1.07c-.74-.23-.75-.74.16-1.1l13.3-5.13c.6-.23 1.18.15.95 1.1l-2.27 10.7c-.16.74-.6.92-1.22.57l-3.34-2.46-1.6 1.55c-.18.18-.33.33-.66.33Z"/></svg>
-          Написать в Telegram
-        </a>
-        <a class="chip" href="mailto:yaltesting@outlook.com">Email</a>
-        <a class="chip" href="https://github.com/RolotBolot">GitHub</a>
-        <a class="chip" href="https://hh.ru/resume/f0d95b30ff10b9872b0039ed1f424650705064">hh.ru</a>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="cta">
+<h2>Готов выйти на стажировку</h2>
+<p>Открыт к junior-позициям и стажировкам. Отвечаю быстро — пишите в Telegram.</p>
+<div class="contacts">
+<a class="chip primary" href="https://t.me/AlexBog98">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 16.6 9.6 13 16 7.2c.3-.3-.06-.4-.45-.18L7.7 12l-3.4-1.07c-.74-.23-.75-.74.16-1.1l13.3-5.13c.6-.23 1.18.15.95 1.1l-2.27 10.7c-.16.74-.6.92-1.22.57l-3.34-2.46-1.6 1.55c-.18.18-.33.33-.66.33Z"/></svg>
+Написать в Telegram
+</a>
+<a class="chip" href="mailto:rolotbolot@mail.ru">Email</a>
+<a class="chip" href="https://github.com/RolotBolot">GitHub</a>
+<a class="chip" href="https://hh.ru/resume/f0d95b30ff10b9872b0039ed1f424650705064">hh.ru</a>
+</div>
+</div>
+</div>
 </section>
 
 <footer>
-  <div class="wrap">© <span id="y"></span> Боголюбов Александр · Резюме собрано на GitHub Pages</div>
+<div class="wrap">© <span id="y"></span> Боголюбов Александр · Резюме собрано на GitHub Pages</div>
 </footer>
 
 <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
